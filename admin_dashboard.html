@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Include any necessary CSS files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin_styles.css') }}">
+    <style> body {
+        margin: 0;
+        padding: 0;
+        background: url('/static/img/7.jpg');
+        background-size: cover;
+        font-family: Arial, sans-serif;
+    }
+
+    ul.admin-functions {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        li {
+            margin-right: 10px; /* Adjust the margin as needed */
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+            padding: 10px;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+        }
+
+        a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style> 
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Admin Dashboard</h1>
+        <!-- Include any header content or navigation here -->
+    </header>
+   
+    
+
+    
+    <main>
+            <section>
+                <h2>Admin Functions</h2>
+                <!-- Add links or buttons for different admin functions -->
+                <ul class="admin-functions">
+                    <li><a href="{{ url_for('view_users') }}">Manage Users</a></li>
+                    <li><a href="{{ url_for('login_history') }}">Login History</a></li>  
+                    <li><a href="{{ url_for('feedback') }}">Feedback</a></li>  
+                    <li><a href="#" onclick="togglePasswordForm()">Change Password</a></li>
+                    <li><a href="{{ url_for('admin_login', logout=1) }}">Log out</a></li>
+                </ul>
+            </section>
+        <!-- Change password form (initially hidden) -->
+<div id="changePasswordForm" style="display: none;">
+    <h2>Change Password</h2>
+    <form id="passwordForm" onsubmit="changePassword(); return false;">
+        <label for="new_password">New Password:</label><br>
+        <input type="password" id="new_password" name="new_password"><br><br>
+        <input type="submit" value="Change Password">
+    </form>
+</div>
+        <!-- Add more sections or content for the admin dashboard -->
+    </main>
+    <!-- Change password form (initially hidden) -->
+
+    <footer>
+        <!-- Include any footer content here -->
+    </footer>
+    <!-- Include any necessary JavaScript files -->
+    <script> // admin_scripts.js
+// Function to handle click events for managing users
+function manageUsers() {
+        alert('You clicked "Manage Users". Implement your functionality here.');
+    }
+
+    // Function to handle click events for managing content
+    function manageContent() {
+        alert('You clicked "Manage Content". Implement your functionality here.');
+    }
+    </script>
+
+    <style>
+        /* admin_styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; 
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+    background-color: #333;
+}
+
+main {
+    padding: 20px;
+}
+
+section {
+     background-color: #fff; 
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    margin-top: 0;
+    color:white
+}
+label {
+    margin-top: 0;
+    color:white
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+</style>
+
+<script>
+    function togglePasswordForm() {
+        var form = document.getElementById("changePasswordForm");
+        if (form.style.display === "none") {
+            form.style.display = "block";
+        } else {
+            form.style.display = "none";
+        }
+    }
+    
+    function changePassword() {
+        var newPassword = document.getElementById("new_password").value;
+        fetch("/admin/change_password", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: "new_password=" + newPassword,
+        })
+        .then(response => {
+            if (response.ok) {
+                // Redirect to admin login page after successful password change
+                window.location.href = "/admin";
+            } else {
+                // Handle error, if any
+                console.error("Failed to change password");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    }
+    </script>
+
+<script>
+    document.getElementById('activateBtn').addEventListener('click', function() {
+        fetch('/activate_lol')
+            .then(response => response.text())
+            .then(message => alert(message));
+    });
+
+    document.getElementById('deactivateBtn').addEventListener('click', function() {
+        fetch('/deactivate_lol')
+            .then(response => response.text())
+            .then(message => alert(message));
+    });
+</script>
+
+
+</body>
+</html>

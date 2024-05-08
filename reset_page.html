@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Reset</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='reset_style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <h1>Password Reset</h1>
+            {% if error_message %}
+                <p class="error-message">{{ error_message }}</p>
+            {% endif %}
+            <form method="POST" action="/reset_password">
+                <input type="hidden" name="token" value="{{ token }}">
+                <label for="password">New Password</label>
+                <input type="password" id="pw" placeholder="Enter Password" name="password" required title="e.g: Abc@0101" autocomplete="off">
+                <input type="password" id="cpw" placeholder="Confirm Password" name="confirm_password" required title="e.g: Enter password again" autocomplete="off">
+                <button type="submit">Reset Password</button>
+            </form>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='validation.js') }}"></script>
+</body>
+</html>

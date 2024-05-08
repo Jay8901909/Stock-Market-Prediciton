@@ -1,0 +1,8 @@
+streamlit run lol.py --server.headless true
+
+https://www.geeksforgeeks.org/time-series-analysis-using-facebook-prophet/
+
+/*extra add 7-3-2024 testing css for mobile*/
+
+mail:notreplystockmarket@gmail.com,notreplystockpredict@outlook.com
+password:Noreplypmpatel1@

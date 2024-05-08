@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Users</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin_users.css') }}">
+    <style> body {
+        margin: 0;
+        padding: 0;
+        background: url('/static/img/8.jpg');
+        background-size: cover;
+        font-family: Arial, sans-serif;
+    }</style>
+</head>
+<body>
+    <header>
+        <!--<a href="/admin/dashboard" class="active-link"><h1>Dashboard</h1></a>-->
+        <h2>Manage Users</h2>
+    </header>
+    <main>
+        <a href="/admin/dashboard" class="active-link"><h1>HOME</h1></a>
+        <section>
+            
+            <h2>User List</h2>
+            <!-- Add form for date filter -->
+            <form action="/admin/users" method="GET">
+                <label for="start_date">Start Date:</label>
+                <input type="date" id="start_date" name="start_date">
+                <label for="end_date">End Date:</label>
+                <input type="date" id="end_date" name="end_date">
+                <button type="submit">Filter</button>
+            </form>
+            <div class="user-table-container">
+                <table class="user-table">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Mobile Number</th>
+                            <th>Password</th>
+                            <th>Confirm Password</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user[0] }}</td>
+                            <td>{{ user[1] }}</td>
+                            <td>{{ user[2] }}</td>
+                            <td>{{ user[3] }}</td>
+                            <td>{{ user[4] }}</td>
+                            <td>{{ user[5] }}</td>
+                            <td>{{ user[6] }}</td>
+                            <td>
+                                <form action="/admin/delete_user" method="POST">
+                                    <input type="hidden" name="email" value="{{ user[2] }}">
+                                    <button type="submit" class="delete-btn">Delete</button>
+                                </form>
+                                <button type="button" class="edit-btn" onclick="editUser('{{ user[2] }}')">Edit</button>
+                                <!-- Add a hidden edit form for each user -->
+                                <form action="/admin/users/edit" method="POST" class="edit-form" style="display: none;">
+                                    <input type="hidden" name="email" value="{{ user[2] }}">
+                                    <!-- Add input fields for other user details here -->
+                                    <div class="edit-input-group">
+                                        <label for="first_name">First Name:</label>
+                                        <input type="text" id="fname_{{ user[2] }}" name="first_name" value="{{ user[0] }}">
+                                    </div>
+                                    <div class="edit-input-group">
+                                        <label for="last_name">Last Name:</label>
+                                        <input type="text" id="lname_{{ user[2] }}" name="last_name" value="{{ user[1] }}">
+                                    </div>
+                                    <div class="edit-input-group">
+                                        <label for="email">Email:</label>
+                                        <input type="email" id="e-id" name="email" value="{{ user[2] }}" readonly>
+                                    </div>
+                                    
+                                    <div class="edit-input-group">
+                                        <label for="mobile_number">Mobile Number:</label>
+                                        <input type="tel" id="mob_{{user[2]}}" name="mobile_number" value="{{ user[3] }}">
+                                    </div>
+                                    <div class="edit-input-group">
+                                        <label for="password">Password:</label>
+                                        <input type="password" id="pw_{{ user[2] }}" name="password" value="{{ user[4] }}">
+                                    </div>
+                                    <div class="edit-input-group">
+                                        <label for="confirm_password">Confirm Password:</label>
+                                        <input type="password" id="cpw_{{ user[2] }}" name="confirm_password" value="{{ user[5] }}">
+                                    </div>
+                                    <!-- Add other input fields for user details -->
+                                    <button type="submit" class="save-btn">Save</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <!-- Footer content here -->
+    </footer>
+    <style>
+        /* Existing CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+    
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+    
+        h1 {
+            margin: 0;
+            color:white
+        }
+    
+        main {
+            padding: 20px;
+        }
+    
+        section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    
+        h2 {
+            margin-top: 0;
+        }
+    
+        .user-table-container {
+            overflow-x: auto;
+        }
+    
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+    
+        .user-table th,
+        .user-table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    
+        .user-table th {
+            background-color: #f2f2f2;
+        }
+    
+        .user-table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    
+        /* New CSS styles for buttons */
+        .edit-btn {
+            padding: 5px 10px;
+            margin-right: 5px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    
+        .edit-btn:hover {
+            background-color: #0056b3;
+        }
+    
+        .save-btn {
+            padding: 5px 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    
+        .save-btn:hover {
+            background-color: #218838;
+        }
+    
+        /* New CSS styles for edit input fields */
+        .edit-input-group {
+            margin-bottom: 10px;
+        }
+    
+        .edit-input-group label {
+            display: inline-block;
+            width: 120px;
+        }
+    
+        .edit-input-group input {
+            width: calc(100% - 130px); /* Adjust width based on label width */
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        /* Add style for active link */
+    .active-link {
+        font-weight: bold;
+        color: rgb(255, 255, 255); /* Change color as needed */
+        text-decoration: none;
+    }
+
+    /* Add hover effect for active link */
+    .active-link:hover {
+        text-decoration: underline;
+    }
+</style>
+<script>
+function editUser(email) {
+    // Hide all edit forms first
+        var editForms = document.getElementsByClassName('edit-form');
+        for (var i = 0; i < editForms.length; i++) {
+                editForms[i].style.display = 'none';
+        }
+            
+        // Show the edit form for the clicked user
+        var editForm = document.querySelector('form.edit-form input[name="email"][value="' + email + '"]').parentNode;
+        editForm.style.display = 'block';
+        }
+</script>
+
+<script>
+    // JavaScript code for password validation
+    // This code will handle all password fields dynamically
+    var passwordFields = document.querySelectorAll('[id^="pw_"]');
+    var confirmPasswordFields = document.querySelectorAll('[id^="cpw_"]');
+
+    function validatePassword() {
+        passwordFields.forEach(function(passwordField) {
+            var confirmPasswordField = document.getElementById('cpw_' + passwordField.id.split('_')[1]); // Get corresponding confirm password field
+
+            var passwordValue = passwordField.value;
+            var characterRegex = /[a-zA-Z]/; // At least one character
+            var numberRegex = /\d/; // At least one number
+            var specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/; // At least one special character
+            var maxLength = 12; // Maximum length
+            var minLength = 5; // Minimum length (modified from 12 to 5)
+
+            if (!characterRegex.test(passwordValue) || !numberRegex.test(passwordValue) || !specialCharRegex.test(passwordValue) || passwordValue.length > maxLength || passwordValue.length < minLength) {
+                passwordField.setCustomValidity("One special character, one number, one character required. Maximum length: 12. Minimum length: 5."); // Modified error message
+            } else {
+                passwordField.setCustomValidity('');
+            }
+
+            // Call cpass() to validate confirm password again
+            cpass(passwordField, confirmPasswordField);
+        });
+    }
+
+    function cpass(passwordField, confirmPasswordField) {
+        if (passwordField.value !== confirmPasswordField.value) {
+            confirmPasswordField.setCustomValidity("Confirm password doesn't match");
+        } else {
+            confirmPasswordField.setCustomValidity('');
+        }
+    }
+
+    // Add event listener for input on password fields
+    passwordFields.forEach(function(passwordField) {
+        passwordField.addEventListener('input', validatePassword);
+    });
+
+    // Add event listener for input on confirm password fields
+    confirmPasswordFields.forEach(function(confirmPasswordField) {
+        confirmPasswordField.addEventListener('input', function() {
+            var passwordField = document.getElementById('pw_' + confirmPasswordField.id.split('_')[1]); // Get corresponding password field
+            cpass(passwordField, confirmPasswordField);
+        });
+    });
+
+    // this validation for firstname and lastname
+    
+    document.addEventListener('DOMContentLoaded', function () {
+            function validateInput(inputElement, errorMessage, maxLength) {
+                inputElement.addEventListener('input', function () {
+                    if (!/^[a-zA-Z]*$/.test(this.value) || this.value.length > maxLength || this.value.length === 21) {
+                        this.setCustomValidity(errorMessage);
+                    } else {
+                        this.setCustomValidity('');
+                    }
+                    this.reportValidity();
+                });
+
+                inputElement.addEventListener('keypress', function (event) {
+                    if (/\d/.test(event.key)) {
+                        event.preventDefault();
+                    }
+                });
+
+                inputElement.addEventListener('input', function () {
+                    if (/[^a-zA-Z0-9]/.test(this.value)) {
+                        this.value = this.value.replace(/[^a-zA-Z0-9]/g, '');
+                    }
+                });
+
+                inputElement.addEventListener('keydown', function (event) {
+                    if (event.key === 'Tab' && this.value.trim() === '') {
+                        event.preventDefault();
+                    }
+                });
+            }
+
+            var inputFields = document.querySelectorAll('[id^="fname_"], [id^="lname_"]');
+            inputFields.forEach(function (inputField) {
+                var id = inputField.id.split('_')[1];
+                validateInput(inputField, "Please enter a valid name (e.g., Sardar). Maximum 20 characters allowed.", 20);
+            });
+        });
+
+// this is for mobile number
+
+// document.addEventListener('DOMContentLoaded', function () {
+//     function validateMobileNumber(inputElement, errorMessage) {
+//         inputElement.addEventListener('input', function () {
+//             // Regular expression for exactly 10 digits
+//             var mobileRegex = /^\d{10}$/;
+
+//             if (!mobileRegex.test(this.value)) {
+//                 this.setCustomValidity(errorMessage);
+//             } else {
+//                 this.setCustomValidity('');
+//             }
+//             this.reportValidity();
+//         });
+
+//         inputElement.addEventListener('keypress', function (event) {
+//             // Prevent any input after reaching 10 digits
+//             if (this.value.length >= 10) {
+//                 event.preventDefault();
+//             } else {
+//                 var keyCode = event.keyCode || event.which;
+//                 var key = String.fromCharCode(keyCode);
+
+//                 // Allow only numbers during keypress event
+//                 if (!/^\d+$/.test(key)) {
+//                     event.preventDefault();
+//                 }
+//             }
+//         });
+//     }
+
+//     // Select all mobile input elements by ID pattern 'mob_'
+//     var mobileInputs = document.querySelectorAll('[id^="mob_"]');
+
+//     // Apply the mobile number validation to each mobile input element
+//     mobileInputs.forEach(function (mobileInput) {
+//         validateMobileNumber(mobileInput, "Please enter a valid 10-digit mobile number");
+//     });
+// });
+
+document.addEventListener('DOMContentLoaded', function () {
+    function validateMobileNumber(inputElement, errorMessage) {
+        inputElement.addEventListener('input', function () {
+            // Regular expression for exactly 10 digits
+            var mobileRegex = /^\d{10}$/;
+
+            if (!mobileRegex.test(this.value)) {
+                this.setCustomValidity(errorMessage);
+            } else {
+                this.setCustomValidity('');
+            }
+            this.reportValidity();
+        });
+
+        inputElement.addEventListener('keypress', function (event) {
+            // Prevent any input after reaching 10 digits
+            if (this.value.length >= 10) {
+                event.preventDefault();
+            } else {
+                var keyCode = event.keyCode || event.which;
+                var key = String.fromCharCode(keyCode);
+
+                // Allow only numbers during keypress event
+                if (!/^\d+$/.test(key)) {
+                    event.preventDefault();
+                }
+            }
+        });
+
+        inputElement.addEventListener('paste', function (event) {
+            // Get the pasted text
+            var pastedText = (event.clipboardData || window.clipboardData).getData('text');
+
+            // Prevent default pasting behavior
+            event.preventDefault();
+
+            // Validate the pasted text
+            var mobileRegex = /^\d{10}$/;
+            if (mobileRegex.test(pastedText)) {
+                this.value = pastedText;
+                this.setCustomValidity('');
+            } else {
+                this.setCustomValidity(errorMessage);
+            }
+            this.reportValidity();
+        });
+    }
+
+    // Select all mobile input elements by ID pattern 'mob_'
+    var mobileInputs = document.querySelectorAll('[id^="mob_"]');
+
+    // Apply the mobile number validation to each mobile input element
+    mobileInputs.forEach(function (mobileInput) {
+        validateMobileNumber(mobileInput, "Please enter a valid 10-digit mobile number");
+    });
+});
+
+</script>
+</body>
+</html>

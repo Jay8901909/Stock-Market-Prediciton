@@ -1,0 +1,187 @@
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #FF9933, #000851);
+            color: #fff;
+        }
+
+        header {
+            background: linear-gradient(135deg, #000851, #FF9933);
+            color: #fff;
+            text-align: center;
+            padding: 1px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background: linear-gradient(135deg, #000851, #FF9933);
+            padding: 5px ;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            margin: 0;
+            padding: 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            padding: 5px 10px;
+            display: block;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: #000;
+        }
+
+        section {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 8px;
+            background: linear-gradient(135deg, #000851, #FF9933);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        h2 {
+            color: #fff;
+            text-align: center;
+        }
+
+        p {
+            line-height: 1.6;
+            color: #ddd;
+        }
+
+        .team-member {
+            display: flex;
+            align-items: center;
+            margin: 20px;
+            padding: 5px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .team-member img {
+            border-radius: 50%;
+            margin-right: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .team-member div {
+            color: #ddd;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Stock Market Animation */
+        .stock-market-animation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 40px;
+            animation: scaleUp 1s ease-out;
+        }
+
+        @keyframes scaleUp {
+            from {
+                transform: scale(0);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .stock-market-animation img {
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            /*transform: rotate(20deg);
+            animation: rotate 2s linear infinite;*/
+        }
+
+        .stock-market-animation p {
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .stock-market-animation .positive {
+            color: #00ff00; /* Green color for positive trend */
+        }
+
+        .stock-market-animation .negative {
+            color: #ff0000; /* Red color for negative trend */
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Mind-blowing Animation */
+        .mind-blowing-animation {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .mind-blowing-animation .box {
+            width: 50px;
+            height: 50px;
+            background-color: #fff;
+            margin: 0 5px;
+            display: inline-block;
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+
+        /* Add more styles and animations as needed */
+
+        footer {
+            background: linear-gradient(135deg, #000851, #FF9933);
+            color: #fff;
+            text-align: center;
+            padding: 1em 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+  

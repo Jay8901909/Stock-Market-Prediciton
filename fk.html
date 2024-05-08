@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='fk.css') }}">
+    <title>Stock Market Prediction</title>
+    <link rel="icon" href="/static/img/logoh.png" type="image/icon type">
+</head>
+<body>
+ <div id="loader"></div>
+ <div class="wrapper">
+    <nav class="nav">
+        <div class="nav-logo">
+            <p>STOCK MARKET PREDICTION</p>
+        </div>
+        <div class="nav-menu" id="navMenu">
+            <ul>
+                <li><a href="{{ url_for('fk_page') }}" class="link ">Home</a></li>
+                <li><a href= "{{ url_for('contact') }}" class="link ">Contact-Us</a> </li>
+                <li><a href= "{{ url_for('aboutus') }}" class="link ">About </a>  </li>
+            </ul>
+        </div>
+        <div class="nav-button">
+            <button class="btn white-btn" id="loginBtn" onclick="login()">Sign In</button>
+            <button class="btn" id="registerBtn" onclick="register()">Sign Up</button>
+        </div>
+        <div class="nav-menu-btn">
+            <i class="bx bx-menu" onclick="myMenuFunction()"></i>
+        </div>
+    </nav>
+
+<!----------------------------- Form box ----------------------------------->    
+    <div class="form-box">
+        
+        <!------------------- login form -------------------------->
+
+        <div class="login-container" id="login">
+            <form action="/login" method="post">
+            <div class="top">
+                <span>Don't have an account? <a href="#" onclick="register()">Sign Up</a></span>
+                <header>Login</header>
+            </div>
+            <div class="input-box">
+                <input type="text" class="input-field" id="l_e-id" placeholder="Email ID" name="l_e_id" autocomplete="off" required>
+                <i class="bx bx-user"></i>
+            </div>
+            <div class="input-box">
+                <input type="password" id="password-field" class="input-field" placeholder="Password" name="psw" autocomplete="off" required>
+                <i class="bx bx-lock-alt"></i>
+                <span class="toggle-password">
+                    <i class="bx bx-hide" onclick="togglePassword()"></i>
+                </span>
+            </div>
+            <div class="input-box">
+                <input type="submit" class="submit" value="Sign In">
+            </div>
+            <div class="two-col">
+                <div class="one">
+                    <input type="checkbox" id="login-check">
+                    <label for="login-check">Remember Me</label>
+                </div>
+                <div class="two">
+                    <label><a href="#" onclick="showForgotForm(event)">Forgot password?</a></label>
+                </div>
+            </div>
+            <div id="error-message">
+                {% if error_message %}
+                <p>{{ error_message }}</p>
+                {% endif %}
+            </div>
+        </form>     
+        </div>
+        
+        <!--------------------------forgot password-------------------->
+        <div class="forgot-container" id="forgot">
+            <form action="/forgot_password" method="post">
+            <div class="top">
+                <span><a href="#" onclick="login(event)">Back to Login</a></span>
+                <header>Forgot Password</header>
+            </div>
+            <div class="input-box">
+                <input type="email" class="input-field" id="forgot-email" name='f_e-id' placeholder="Enter your Email" autocomplete="off" required>
+                <i class="bx bx-envelope"></i>
+            </div>
+            <div class="input-box">
+                <input type="submit" class="submit" value="Reset Password">
+            </div>
+
+            <div id="valid_message">
+                {% if valid_message %}
+                <p>{{ valid_message }}</p>
+                {% endif %}
+            </div>
+
+            <div id="error-message-forgot">
+                {% if error_message %}
+                <p>{{ error_message }}</p>
+                {% endif %}
+            </div>
+        </form>
+        </div>
+    
+<!------------------- registration form -------------------------->
+<div class="register-container" id="register">
+    <div class="slider">
+        <!-- Your slider content goes here -->
+    </div>
+    <form action="/submit" method="post">
+    <div class="top">
+        <span>Have an account? <a href="#" onclick="login()">Login</a></span>
+        <header>Sign Up</header>
+    </div>
+    <div class="two-forms">
+        <div class="input-box">
+            <input type="text" class="input-field" id="fname" placeholder="First Name" name="First_Name" required pattern= "[A-Za-z]{1,20}" title="e.g: Sardar" autocomplete="off">
+            <i class="bx bx-user"></i>
+        </div>
+        <div class="input-box">
+            <input type="text" class="input-field" id="lname" placeholder="Last Name" name="Last_Name" pattern="[A-Za-z]{1,20}"  required title="e.g: patel" autocomplete="off">
+            <i class="bx bx-user"></i>
+        </div>
+
+        <!-- Add a loading indicator -->
+        <div id="verificationLoader" style="display: none;">
+        Sending verification email...
+        </div>
+
+    </div>
+    <div class="input-box">
+        <input type="email" class="input-field" id="e-id" placeholder="Email Id" name="Email_Id" required title="e.g:fkprice@mail.com" autocomplete="off" autocomplete="off">
+        <i class="bx bx-envelope"></i>
+        <label class="verify"><a href="#" id="verifyLink">Verify</a></label>
+    </div>
+    <div class="input-box">
+        <input type="tel" class="input-field" id="mob" placeholder="Mobile Number" name="Mobile_Number" pattern="[0-9]{10}" title="e.g:9578848291" required autocomplete="off"> 
+        <i class="bx bx-phone"></i>
+    </div>
+    <div class="input-box">
+        <input type="password" class="input-field" id="pw" placeholder="Enter Password" name="Password" required title="e.g:Fakad@2002" autocomplete="off">
+        <i class="bx bx-lock-alt"></i>
+    </div>
+    <div class="input-box">
+        <input type="password" class="input-field" id="cpw" placeholder="Confirm Password" name="Confirm_Password" required title="e.g:enter password again" autocomplete="off"> 
+        <i class="bx bx-lock-alt"></i>
+        <span class="rtoggle-password">
+        <i class="bx bx-hide" onclick="togglePasswordRegister()"></i>
+        </span>
+    </div>
+    <div class="input-box">
+        <input type="submit" class="submit" value="Register">
+    </div>
+    <div class="two-col">
+        <div class="one">
+            <input type="checkbox" id="register-check" required>
+            <label for="register-check">Agree to the terms and conditions</label>
+        </div>
+        <div class="two">
+            <label><a href="{{ url_for('terms_and_conditions') }}">Terms and Conditions</a>
+            </label>
+            
+        </div>
+    </div>
+    <div id="error-message-register">
+        {% if error_message %}
+        <p>{{ error_message }}</p>
+        {% endif %}
+    </div>
+</form>
+</div>
+
+<script src="{{ url_for('static', filename='formhandling.js') }}"></script>
+<script src="{{ url_for('static', filename='validation.js') }}"></script>
+<script src="{{ url_for('static', filename='timing_s.js') }}"></script>
+<script src="{{ url_for('static', filename='store_pass.js') }}"></script>
+
+<script>
+    // Function to send verification email when "Verify" link is clicked
+    function sendVerificationEmail(event) {
+        event.preventDefault();  // Prevent the default action of the link
+
+        // Show the loading indicator
+        document.getElementById("verificationLoader").style.display = "block";
+
+        // Retrieve the email entered in the registration form
+        var email = document.getElementById("e-id").value;
+
+        // Send a POST request to the backend to initiate the email verification process
+        fetch('/send_verification_email', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: email })
+        })
+        .then(response => {
+            // Hide the loading indicator when the response is received
+            document.getElementById("verificationLoader").style.display = "none";
+
+            if (response.ok) {
+                alert("Verification link sent successfully!");
+            } else {
+                throw new Error('Failed to send verification link.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    // Attach the sendVerificationEmail function to the click event of the "Verify" link
+    document.getElementById("verifyLink").addEventListener("click", sendVerificationEmail);
+</script>
+
+
+<!--<script>
+    // Function to send verification email when registration form is submitted
+    function sendVerificationEmail() {
+        // Retrieve the email entered in the registration form
+        var email = document.getElementById("e-id").value;
+
+        // Send a POST request to the backend to initiate the email verification process
+        fetch('/send_verification_email', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: email })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Verification link sent successfully!");
+            } else {
+                throw new Error('Failed to send verification link.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    // Attach the sendVerificationEmail function to the form submission event
+    document.getElementById("register-form").addEventListener("submit", function(event) {
+        event.preventDefault();  // Prevent the default form submission
+
+        // Call the sendVerificationEmail function to initiate the email verification process
+        sendVerificationEmail();
+    });
+</script>-->
+
+<!--<script>
+    // Function to send verification email when "Verify" link is clicked
+    function sendVerificationEmail(event) {
+        event.preventDefault();  // Prevent the default action of the link
+
+        // Retrieve the email entered in the registration form
+        var email = document.getElementById("e-id").value;
+
+        // Send a POST request to the backend to initiate the email verification process
+        fetch('/send_verification_email', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: email })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Verification link sent successfully!");
+            } else {
+                throw new Error('Failed to send verification link.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    // Attach the sendVerificationEmail function to the click event of the "Verify" link
+    document.getElementById("verifyLink").addEventListener("click", sendVerificationEmail);
+</script>-->
+
+<style>
+    #verificationLoader {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#verificationLoader img {
+    width: 50px;
+    height: 50px;
+    margin-top: 10px;
+}
+</style>
+
+</body>
+</html>

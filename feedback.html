@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    
+</head>
+<body>
+    <header>
+        <h1 class="f">Feedback</h1>
+    </header>
+    <main>
+        <a href="/admin/dashboard" class="active-link"><h1>HOME</h1></a>
+        <section>
+            <h2>Feedback List</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Mobile Number</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contact in contact_data %}
+                    <tr>
+                        <td>{{ contact[0] }}</td>
+                        <td>{{ contact[1] }}</td>
+                        <td>{{ contact[2] }}</td>
+                        <td>{{ contact[3] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+    
+<style>
+    /* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.active-link {
+        font-weight: bold;
+        color: black;
+        text-decoration: none;
+    }
+.active-link:hover {
+        text-decoration: underline;
+    }
+h1{
+    color:black
+}
+h1.f{
+    color:white;
+}
+
+header, footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+}
+
+main {
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #333;
+    color: #fff;
+}
+</style>
+</body>
+</html>

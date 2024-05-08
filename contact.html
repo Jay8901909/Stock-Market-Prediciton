@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='contact.css') }}">
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+    <link rel="icon" href="/static/img/contact.png" type="image/icon type">
+</head>
+<body>
+    <nav>
+        <ul id='MenuItems'>
+            <li><a href="{{ url_for('fk_page') }}">Home</a></li>
+            <li><a href="{{ url_for('aboutus') }}">About us</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <span class="big-circle"></span>
+        <img src="/static/img/shape.png" class="square" alt="" />
+        <div class="form">
+            <div class="contact-info">
+                <h3 class="title">Let's get in touch</h3>
+                <p class="text">
+                    Contact fardin or kadam
+                </p>
+
+                <div class="info">
+                    <div class="information">
+                        <img src="/static/img/location.png" class="icon" alt="" />
+                        <p>shree p.m.patel colleges</p>
+                    </div>
+                    <div class="information">
+                        <img src="/static/img/email.png" class="icon" alt="" />
+                        <p>fardinmalek7333@gmail.com</p>
+                    </div>
+                    <div class="information">
+                        <img src="/static/img/phone.png" class="icon" alt="" />
+                        <p>+91 9924059579</p>
+                    </div>
+                </div>
+
+                <div class="social-media">
+                    <p>Connect with us :</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/pmpbca.in/">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://x.com/kadamb_parekh/">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://www.instagram.com/BCA_APMS/">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <!--<a href="#">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <span class="circle one"></span>
+                <span class="circle two"></span>
+
+                <form action="{{ url_for('contact') }}" method="post">
+                    <h3 class="title">Contact us</h3>
+                    <div class="input-container">
+                        <input type="text" name="name" class="input" autocomplete="off">
+                        <label for="">Name</label>
+                        <span>Name</span>
+                    </div>
+                    <div class="input-container">
+                        <input type="email" name="email" id="e-id" class="input" autocomplete="off" required>
+                        <label for="">Email</label>
+                        <span>Email</span>
+                    </div>
+                    <div class="input-container">
+                        <input type="tel" name="mo_num" id="mob" class="input" autocomplete="off" required>
+                                
+                        <label for="">Contact number</label>
+                        <span>Contact number</span>
+                    </div>
+                    <div class="input-container textarea">
+                        <textarea name="message" class="input" autocomplete="off"></textarea>
+                        <label for="">Message</label>
+                        <span>Message</span>
+                    </div>
+                    <input type="submit" value="Send" class="btn"/>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='contact.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function validateEmail(emailElement, errorMessage) {
+                emailElement.addEventListener('input', function () {
+                    var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/;
+
+                    var email = this.value;
+
+                    if (emailRegex.test(email)) {
+                        console.log("Email is valid");
+                    } else {
+                        console.log("Email is not valid");
+                    }
+
+                    if (!emailRegex.test(email) || email.length > 50) {
+                        this.setCustomValidity(errorMessage);
+                    } else {
+                        this.setCustomValidity('');
+                    }
+
+                    this.reportValidity();
+                });
+
+                emailElement.addEventListener('keydown', function (event) {
+                    if (event.key === 'Tab' && this.value.trim() === '') {
+                        event.preventDefault();
+                    }
+                });
+            }
+
+            var emailInputs = document.querySelectorAll('#e-id, #l_e-id');
+
+            emailInputs.forEach(function (emailInput) {
+                validateEmail(emailInput, "Please enter a valid email address (e.g., fkprice@mail.com). Maximum 50 characters allowed.");
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var mobileInput = document.getElementById('mob');
+
+            mobileInput.addEventListener('input', function () {
+                var mobileRegex = /^\d{10}$/;
+
+                if (!mobileRegex.test(this.value)) {
+                    this.setCustomValidity("Please enter a valid 10-digit mobile number");
+                } else {
+                    this.setCustomValidity('');
+                }
+                this.reportValidity();
+            });
+
+            mobileInput.addEventListener('keypress', function (event) {
+                if (this.value.length >= 10) {
+                    event.preventDefault();
+                } else {
+                    var keyCode = event.keyCode || event.which;
+                    var key = String.fromCharCode(keyCode);
+
+                    if (!/^\d+$/.test(key)) {
+                        event.preventDefault();
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

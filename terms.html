@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Market Prediction Service Terms and Conditions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333333;
+        }
+        p {
+            color: #666666;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul id='MenuItems'>
+            <li><a href="{{ url_for('fk_page') }}">Home</a></li>
+            <li><a href="{{ url_for('aboutus') }}">About us</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Stock Market Prediction Service Terms and Conditions</h1>
+        <h2>Introduction</h2>
+        <p>Welcome to our Stock Market Prediction Service. By accessing or using our service, you agree to comply with and be bound by the following terms and conditions.</p>
+
+        <h2>Use of Service</h2>
+        <p>Our service utilizes the Facebook Prophet algorithm to provide predictions and forecasts for stock market trends. These predictions are based on historical data and statistical analysis, and while we strive for accuracy, we cannot guarantee the correctness of the predictions.</p>
+
+        <h2>Accuracy Disclaimer</h2>
+        <p>While we make every effort to ensure the accuracy of the predictions provided by our service, we cannot guarantee that they will be correct or reliable. Stock market prediction involves inherent uncertainties and risks, and past performance is not indicative of future results.</p>
+
+        <h2>Investment Risks</h2>
+        <p>Trading and investing in the stock market involves risks, including the risk of losing your investment. Our service is intended for informational purposes only and should not be construed as financial advice. We recommend consulting with a qualified financial advisor before making any investment decisions.</p>
+
+        <h2>Limitation of Liability</h2>
+        <p>We shall not be liable for any damages or losses arising out of or in connection with the use of our service. This includes, but is not limited to, direct or indirect damages, loss of profits, or any other incidental, consequential, or punitive damages.</p>
+
+        <h2>Modification of Terms</h2>
+        <p>We reserve the right to modify these terms and conditions at any time without prior notice. By continuing to use our service after any such modifications, you agree to be bound by the revised terms and conditions.</p>
+
+        <h2>Contact Us</h2>
+        <p>If you have any questions or concerns about these terms and conditions, please contact us at <li><a href="{{ url_for('contact') }}">Contact Us Page</a></li>.</p>
+
+        
+    </div>
+</body>
+</html>

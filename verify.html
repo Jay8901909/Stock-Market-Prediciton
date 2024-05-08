@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='verify.css') }}">
+    <title>Verification Form</title>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <h1>Verification Form</h1>
+            <form action="/verify_email_process" method="POST">
+                <input type="hidden" name="token" value="{{ token }}">
+                <label for="email">Email:</label><br>
+              <!--  <input type="email" id="email" name="email" value="{{ request.args.get('email') }}" required readonly><br> Populate email input with query parameter-->
+              <input type="email" id="email" name="email" value="{{ email }}" required readonly><br> 
+              <label for="verificationCode">Verification Code:</label><br>
+                <input type="text" id="verificationCode" name="verificationCode" required autocomplete="off"><br>
+                <button type="submit">Verify</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript for handling the verify button click event -->
+    <script>
+        document.getElementById("verifyButton").addEventListener("click", function() {
+            // You can add further functionality here to handle the verification process
+            // For example, you can submit the form using JavaScript
+            document.querySelector("form").submit();
+        });
+    </script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#verificationForm').on('submit', function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: '/verify_email_process',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        // Display message in an alert box
+                        alert(response.message);
+                    },
+                    error: function(xhr, status, error) {
+                        alert('An error occurred while processing your request. Please try again later.');
+                    }
+                });
+            });
+        });
+    </script>
+    
+</body>
+</html>

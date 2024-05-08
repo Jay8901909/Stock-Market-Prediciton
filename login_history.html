@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login History</title>
+    <!-- Include any necessary CSS files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='login_history_styles.css') }}">
+    <style> body {
+        margin: 0;
+        padding: 0;
+        background: url('/static/img/9.jpg');
+        background-size: cover;
+        font-family: Arial, sans-serif;
+    }</style>
+</head>
+<body>
+    <header>
+        <h1>Login History</h1>
+       
+        <!-- Include any header content or navigation here -->
+    </header>
+    <main>
+        <a href="/admin/dashboard" class="active-link"><h1>HOME</h1></a>
+       
+        <section>
+            <h2>Login Records</h2>
+        
+                
+            
+            <form method="GET" action="/admin/login_history">
+                
+                <label for="start_date">Start Date:</label>
+                
+                <input type="date" id="start_date" name="start_date">
+                <label for="end_date">End Date:</label>
+                <input type="date" id="end_date" name="end_date">
+                <button type="submit">Filter</button>
+                
+            </form>
+          
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Mobile Number</th>
+                        <th>Login Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in login_records %}
+                        <tr>
+                            <td>{{ record[0] }}</td>
+                            <td>{{ record[1] }}</td>
+                            <td>{{ record[2] }}</td>
+                            <td>{{ record[3] }}</td>
+                            <td>{{ record[4] }}</td>
+                            <td>{{ record[5] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+        <!-- Add more sections or content for the login history page -->
+    </main>
+    <footer>
+        <!-- Include any footer content here -->
+    </footer>
+    <!-- Include any necessary JavaScript files -->
+    <script src="{{ url_for('static', filename='login_history_scripts.js') }}"></script>
+    <style>
+        /* login_history_styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+    color:whitesmoke;
+}
+
+main {
+    padding: 20px;
+}
+
+section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    margin-top: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+tfoot {
+    font-weight: bold;
+}
+    /* Add style for active link */
+    .active-link {
+        font-weight: bold;
+        color: rgb(255, 255, 255); /* Change color as needed */
+        text-decoration: none;
+    }
+
+    /* Add hover effect for active link */
+    .active-link:hover {
+        text-decoration: underline;
+    }
+     
+
+</style>
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Stock Market Prediction</h1>
+  </header>
+  <nav>
+    <ul id='MenuItems'>
+        <li><a href="{{ url_for('fk_page') }}">Home</a></li>
+    </ul>
+</nav>
+  <section class="team-members">
+    <div class="member">
+      <img src="/static/img/kadamb_p.jpg" alt="Team Member 1">
+      <h2>Kadamb Parekh</h2>
+      <p>Database handler</p>
+      <div class="social-links">
+        <a class="instagram" href="https://www.instagram.com/_._kadam_._" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a class="whatsapp" href="https://wa.me/+918460298402" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div class="member">
+      <img src="/static/img/fardin_p.jpg" alt="Team Member 2">
+      <h2>Fardin malek</h2>
+      <p>Web-site handler</p>
+      <div class="social-links">
+        <a class="instagram" href="https://www.instagram.com/fardin_08_" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a class="whatsapp" href="https://wa.me/+919924059579" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div>
+        <p>Welcome to FK Stock Market Prediction Web-site, your brilliant source for innovative stock market predictions.
+             Our dedicated research team provides officially predicted stock accuracies of up to 40%.
+             We are committed to delivering accurate insights to assist you in making informed investment decisions.</p>
+    </div>
+  </section>
+  <style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  .team-members {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 20px;
+  }
+
+  .member {
+    margin: 20px;
+    text-align: center;
+  }
+
+  .member img {
+      width: 150px;
+      height: 200px;
+      border-radius: 0;
+      object-fit: fill;
+      margin-bottom: 0px;
+  }
+
+  .member h2 {
+    margin: 5px 0;
+  }
+
+  .member p {
+    margin: 0;
+    color: #666;
+  }
+
+  .social-links a {
+    margin: 0 5px;
+    color: #666;
+    font-size: 24px;
+    transition: color 0.3s ease; /* Add transition for smooth color change */
+  }
+
+  .social-links a.instagram:hover {
+    color: red; /* Change color on hover */
+  }
+
+  .social-links a.whatsapp:hover {
+    color: green; /* Change color on hover */
+  }
+  /* Styling for <ul> and <li> elements */
+/* Styling for <ul> and <li> elements */
+  #MenuItems {
+  list-style-type: none; /* Remove default bullet points */
+  padding: 0;
+  margin: 0;
+}
+
+#MenuItems li {
+  display: inline; /* Display list items horizontally */
+  margin-right: 20px; /* Add some spacing between list items */
+}
+
+#MenuItems li a {
+  text-decoration: none; /* Remove underline from anchor links */
+  color: #333; /* Set text color */
+  transition: color 0.3s ease; /* Add transition for smooth color change */
+}
+
+#MenuItems li a:hover {
+  color: #0059ff; /* Change text color on hover */
+}
+
+/* Best CSS for <p> tag */
+p {
+  line-height: 1.6; /* Set line height to improve readability */
+}
+
+/* Hover effects for social links */
+.social-links a:hover {
+  transform: scale(1.2); /* Scale up the icon on hover */
+}
+
+
+  </style>
+</body>
+</html>
